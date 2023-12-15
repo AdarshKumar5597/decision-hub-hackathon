@@ -57,20 +57,22 @@ DecisionHub is not just a tool; it's a transformative platform that enhances the
       1. **Create Rule**
          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/da6b2435-4dad-4656-b862-070e426a3417)
 
-      2. **Test Rule**
+      2. **Modify Rule**
          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/8f251642-fc4f-464e-bb21-741cc0c72467)
          *Note* - UI for this feature is under process. It will be updated by 16 dec
          for now I have uploaded the api test results and it is working fine
 
-      4. **Modify Rule**
+      4. **Test Rule**
          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/bbdab0bc-2fd0-471d-b459-111139ce99dc)
          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/8767d1a3-875a-4b9c-bef1-12616a369d39)
+         Here we can test our rule by specifying the parameters according to our need
 
-      5. **Debug Rule**
+      6. **Debug Rule**
          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/e5cc5137-a214-46b3-805c-70c7f33ce18c)
          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/7638fbe7-bb2a-43d6-a223-fed3e220edb9)
          *Note* - UI for this feature is under process. It will be updated by 16 dec
          for now I have uploaded the api test results and it is working fine
+         Here it is showing all the necessary conditions which are required for the correct execution for the following SQL query.
 
 
 
