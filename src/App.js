@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/common/Navbar';
+import RuleCreate from './components/RuleCreate';
+import DebugRule from './components/DebugRule';
+import ModifyRule from './components/ModifyRule';
+import TestRule from './components/TestRule';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`bg-[url('./assets/Images/mainbg.jpg')] h-[100vh] w-[100vw] mt-0 mx-0 overflow-x-hidden`}>
+      <div className='py-[1rem] px-[2rem]'>
+        <Navbar/>
+        <Routes>
+          <Route path='/' element={<RuleCreate/>} />
+          <Route path='/debug' element={<DebugRule/>} />
+          <Route path='/modify' element={<ModifyRule/>} />
+          <Route path='/test' element={<TestRule/>} />
+        </Routes>
+      </div>
     </div>
   );
 }
