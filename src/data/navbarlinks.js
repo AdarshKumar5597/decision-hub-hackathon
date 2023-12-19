@@ -14,5 +14,9 @@ export const NavbarLinks = [
     {
         title:"Debug",
         path:"/debug"
+    },
+    {
+        title:"Database Queries",
+        path:"/dbfilerule"
     }
 ]

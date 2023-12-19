@@ -3,6 +3,10 @@ import { getAllRules } from '../services/operations/getAllRulesAPI';
 import { matchPath, useLocation } from 'react-router-dom';
 import { modifyRule } from '../services/operations/modifyRuleAPI';
 import { useForm } from 'react-hook-form';
+import { debugRule } from '../services/operations/debugRuleAPI';
+import DebugRuleForm from '../components/forms/DebugRuleForm';
+import TestRuleForm from '../components/forms/TestRuleForm';
+import { ruleHasParameters, testRule } from '../services/operations/testRuleAPI';
 
 const RulesList = () => {
   const {
@@ -17,23 +21,39 @@ const RulesList = () => {
   const [loading, setLoading] = useState(false);
   const [onClicked, setOnClicked] = useState(false);
   const [oldRule, setOldRule] = useState(null);
+  const [parametersList, setParametersList] = useState([]);
 
   const matchRoute = (route) => {
-    return matchPath(location.pathname, { path: route });
+    return matchPath({ path: route } , location.pathname );
   };
 
   const operate = async (oldRuleDesc, newRuleDesc) => {
-    if (onClicked || matchRoute("/modify")) {
+    if (onClicked && matchRoute("/modify")) {
       let oldRuleDescription = oldRuleDesc;
       let newRuleDescription = newRuleDesc;
       let result = await modifyRule(oldRuleDescription, newRuleDescription);
       return result;
     }
+    if (onClicked && matchRoute("/debug")) {
+      let oldRuleDescription = oldRuleDesc;
+      let result = await debugRule(oldRuleDescription);
+      return result;
+    }
+    if (onClicked && matchRoute("/test")) {
+      let result = await testRule(oldRule._id, newRuleDesc);
+      return result;
+    }
   };
 
-  function changeOldRuleOnClick(rule) {
+  async function changeOldRuleOnClick(rule) {
     setOnClicked(!onClicked);
     setOldRule(rule);
+    if (matchRoute("/test")) {
+      let result = await ruleHasParameters(rule._id);
+      if (result) {
+        setParametersList(result);
+      }
+    }
   }
 
 
@@ -63,12 +83,13 @@ const RulesList = () => {
   };
 
   useEffect(() => {
+    console.log("use effect triggered")
     getAllRulesFunc();
   }, []);
 
   return (
-    <div className='mx-auto w-11/12 max-w-[1000px] py-10 gap-y-4 flex flex-col items-center justify-center overflow-y-scroll max-h-[80vh] mt-10 rounded-md'>
-      {onClicked ? (
+    <div className='mx-auto w-11/12 max-w-[1000px] py-5 flex items-center justify-center rounded-md'>
+      {onClicked && matchRoute("/modify") ? (
         <div>
           <form
             className="flex flex-col gap-y-4 absolute left-[50%] translate-x-[-50%] items-center justify-center py-10 bg-white rounded-md"
@@ -128,19 +149,26 @@ const RulesList = () => {
             </div>
           </form>
         </div>
-      ) : (
-        <div className='flex flex-col gap-y-5'>
+      ) : 
+
+      (onClicked && matchRoute("/debug")) ? (<DebugRuleForm operate = {operate} setLoading = {setLoading} oldRule={oldRule}/>) :
+
+      (onClicked && matchRoute("/test")) ? (parametersList.length > 0 ? (<TestRuleForm operate = {operate} setLoading = {setLoading} oldRule={oldRule} parametersList={parametersList}/>) : (<DebugRuleForm operate = {operate} setLoading = {setLoading} oldRule={oldRule}/>)) :
+      
+      (
+
+        <div className='flex flex-col gap-y-5 overflow-y-scroll max-h-[80vh] py-3'>
           {rules.length > 0 ? (
             rules.map((rule, key) => (
               <div
                 key={key}
-                className='flex flex-col items-start px-5 justify-center rounded-md bg-gradient-to-r from-teal-400 to-yellow-200 w-full shadow-md shadow-green-900 hover:cursor-pointer'
+                className='flex flex-col items-start px-5 gap-y-3 py-3 justify-center rounded-md bg-gradient-to-r from-teal-400 to-yellow-200 w-full shadow-md shadow-green-900 hover:cursor-pointer'
                 onClick={() => changeOldRuleOnClick(rule)}
               >
-                <p className='flex gap-x-2 items-center font-semibold text-green-950 py-3'>
+                <p className='flex gap-x-2 items-center font-semibold text-green-950'>
                   <span className='flex items-center justify-start rounded-md bg-green-500 text-white p-1 pl-3 w-40'>Rule :</span> {rule.name}
                 </p>
-                <p className='flex gap-x-2 items-center font-semibold text-green-950 pb-3'>
+                <p className='flex gap-x-2 items-center font-semibold text-green-950'>
                   <span className='flex items-center justify-start rounded-md bg-green-500 text-white p-1 pl-3 w-40'>SQL Query : </span> {rule.correspondingRule}
                 </p>
               </div>

@@ -19,6 +19,11 @@ app.use(
 		credentials:true,
 	})
 )
+const fileUpload = require("express-fileupload")
+app.use(fileUpload({
+    useTempFiles:true,
+    tempFileDir: '/tmp'
+}))
 
 app.get("/", (req, res) => {
 	return res.json({

@@ -12,7 +12,6 @@ exports.ruleHasParameters = async (req, res) => {
         const { id } = req.params
         console.log(id)
         const ruleParameters = await RuleParameters.find({ rule: id })
-        console.log(ruleParameters)
         if (ruleParameters[0].parameters.length) {
             return res.status(200).json({
                 success: true,
