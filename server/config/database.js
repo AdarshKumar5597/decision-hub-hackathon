@@ -1,15 +1,36 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config();
 
-exports.connect = () => {
-    mongoose.connect(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology:true,
-    })
-    .then(() => console.log("DB Connected Successfully"))
-    .catch( (error) => {
-        console.log("DB Connection Failed");
-        console.error(error);
+const uri = process.env.MONGODB_ATLAS_URI; // Replace with your MongoDB Atlas connection string
+const client = new MongoClient(uri, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    },
+});
+
+let isConnected = false;
+
+exports.connect = async () => {
+    try {
+        if (!isConnected) {
+            await client.connect();
+            isConnected = true;
+            console.log('Connected to MongoDB Atlas');
+        }
+    } catch (error) {
+        console.error('Error connecting to MongoDB Atlas:', error);
         process.exit(1);
-    } )
+    }
 };
+
+exports.close = async () => {
+    if (isConnected) {
+        await client.close();
+        isConnected = false;
+        console.log('MongoDB Atlas connection closed.');
+    }
+};
+
+exports.getClient = () => client;
