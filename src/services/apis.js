@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api/v1/rules"
+const BASE_URL = "https://express-backend-cdlo.onrender.com/api/v1/rules"
 
 //ENDPOINTS
 export const endpoints = {
