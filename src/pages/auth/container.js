@@ -1,11 +1,17 @@
 import React from "react"
-import { useLocation } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom"
 import Login from "./login";
 import Register from "./register";
+import { useSelector } from "react-redux";
 
 
 function Container() {
   const location = useLocation();
+  const { isLoggedIn } = useSelector((state) => state.authReducer);
+
+  if (isLoggedIn === true) {
+    return <Navigate to="/" />
+  }
 
   return (
     <div className="bg-[url(https://i.postimg.cc/j5KFymrz/background.png)] bg-cover bg-no-repeat relative h-screen w-screen">

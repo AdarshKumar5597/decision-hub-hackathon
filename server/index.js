@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 
 // routes
 app.use("/api/v1/rules", ruleRoutes);
-app.use("/api/v1/", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.listen(PORT, () => {
     console.log(`App is running at ${PORT}`)
