@@ -1,7 +1,7 @@
 import React from "react"
 import Container from "./container"
 import Logo from "./auth_assets/Logo.png"
-function register() {
+function Register() {
   return (
     <>
       <Container>
@@ -84,4 +84,4 @@ function register() {
   )
 }
 
-export default register
+export default Register

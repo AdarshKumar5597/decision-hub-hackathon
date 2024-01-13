@@ -1,11 +1,9 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from "react"
 import Logo from "./auth_assets/Logo.png"
-import Container from "./container"
-const login = () => {
+const Login = () => {
   return (
     <>
-      <Container>
         <form
           action=""
           method="post"
@@ -69,9 +67,8 @@ const login = () => {
             </a>
           </div>
         </form>
-      </Container>
     </>
   )
 }
 
-export default login
+export default Login

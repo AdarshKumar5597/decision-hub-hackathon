@@ -7,8 +7,7 @@ import DebugRule from "./components/DebugRule"
 import ModifyRule from "./components/ModifyRule"
 import TestRule from "./components/TestRule"
 import DbFileRule from "./components/DbFileRule"
-import Login from "./pages/auth/login.js"
-import Register from "./pages/auth/register.js"
+import Container from "./pages/auth/container.js"
 
 function App() {
   const location = useLocation()
@@ -20,8 +19,8 @@ function App() {
       {location.pathname === "/auth/login" ||
       location.pathname === "/auth/register" ? (
         <Routes>
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/register" element={<Register />} />
+          <Route path="/auth/login" element={<Container />} />
+          <Route path="/auth/register" element={<Container />} />
         </Routes>
       ) : (
         <div className="py-[1rem] px-[2rem]">
