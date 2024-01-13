@@ -4,6 +4,8 @@ const app = express();
 const dotenv = require("dotenv");
 const { connect, close } = require("./config/database"); // Importing connect and close functions from database.js
 const ruleRoutes = require('./routes/ruleRoutes');
+const authRoutes = require('./routes/authRoutes');
+
 const cors = require("cors");
 
 dotenv.config();
@@ -34,6 +36,7 @@ app.get("/", (req, res) => {
 
 // routes
 app.use("/api/v1/rules", ruleRoutes);
+app.use("/api/v1/", authRoutes);
 
 app.listen(PORT, () => {
     console.log(`App is running at ${PORT}`)
