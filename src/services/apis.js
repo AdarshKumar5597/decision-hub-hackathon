@@ -1,4 +1,5 @@
 const BASE_URL = "https://express-backend-cdlo.onrender.com/api/v1/rules"
+const AUTH_URL = "https://express-backend-cdlo.onrender.com/api/v1/auth"
 
 //ENDPOINTS
 export const endpoints = {
@@ -10,4 +11,9 @@ export const endpoints = {
     TEST_RULE_API : BASE_URL + "/testRule/",
     UPLOAD_DBFILE_API : BASE_URL + "/uploaddbfile",
     DBFILE_QUERY_API : BASE_URL + "/dbfilequery",
+}
+
+export const authEndpoints = {
+    LOGIN_API : AUTH_URL + "/login",
+    REGISTER_API : AUTH_URL + "/register",
 }

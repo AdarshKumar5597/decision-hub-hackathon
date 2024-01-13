@@ -4,7 +4,7 @@ import Login from "./login";
 import Register from "./register";
 
 
-function Container({ children }) {
+function Container() {
   const location = useLocation();
 
   return (

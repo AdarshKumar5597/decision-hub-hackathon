@@ -16,11 +16,11 @@ function App() {
     <div
       className={`bg-[url('./assets/Images/mainbg.jpg')] h-[100vh] w-[100vw] mt-0 mx-0 overflow-hidden`}
     >
-      {location.pathname === "/auth/login" ||
-      location.pathname === "/auth/register" ? (
+      {location.pathname === "/auth/register" ||
+        location.pathname === "/auth/login" ? (
         <Routes>
-          <Route path="/auth/login" element={<Container />} />
           <Route path="/auth/register" element={<Container />} />
+          <Route path="/auth/login" element={<Container />} />
         </Routes>
       ) : (
         <div className="py-[1rem] px-[2rem]">

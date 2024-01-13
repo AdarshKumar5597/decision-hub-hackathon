@@ -1,16 +1,58 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from "react"
 import Logo from "./auth_assets/Logo.png"
+import { useForm } from "react-hook-form"
+import { FormProvider as Form } from 'react-hook-form';
+import * as Yup from 'yup';
+import { useDispatch } from "react-redux";
+import { UserLogin } from "../../slices/auth";
+import { Alert } from "@mui/material";
+import { yupResolver } from "@hookform/resolvers/yup"
+
+
 const Login = () => {
+
+  const dispatch = useDispatch();
+
+  const LoginSchema = Yup.object({
+    email: Yup.string().required("Email is required").email("Email must be a valid Email address"),
+    password: Yup.string().required("Password is required")
+  })
+
+  const methods = useForm({
+    resolver: yupResolver(LoginSchema),
+  })
+
+  const { register, reset, setError, handleSubmit, formState: { errors, isSubmitSuccessful, isSubmitting } } = methods;
+
+
+  const onSubmit = async (data) => {
+    try {
+      // submit data to backend
+      console.log(data)
+      dispatch(UserLogin(data));
+
+    } catch (error) {
+      console.log(error);
+      reset();
+      setError("afterSubmit", {
+        ...error,
+        message: error.message,
+      })
+    }
+  }
+
   return (
     <>
+      <Form methods={methods}>
         <form
           action=""
           method="post"
           className="flex flex-col justify-center items-center md:w-1/2 w-full md:rounded-l-3xl rounded-3xl shadow-md text-white bg-black/20"
+          onSubmit={handleSubmit(onSubmit)}
         >
-          {/* <div className="absolute top-[6.5rem] left-[380px] h-16 w-16 rounded-full bg-[#e84949]"></div>
-            <div className="absolute h-60 w-60 rounded-full bg-white bottom-6 right-[300px] z-10"></div> */}
+          {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+
           <img
             src={Logo}
             alt=""
@@ -29,7 +71,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 className="h-12 w-60 rounded-lg bg-[#233446] p-2 text-white-700 font-bold border-none"
-                required
+                {...register("email", { required: true })}
               />
             </div>
 
@@ -41,7 +83,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 className="h-12 w-60 rounded-lg bg-[#233446] p-2 text-white-700 font-bold border-none"
-                required
+                {...register("password", { required: true })}
               />
             </div>
           </div>
@@ -67,6 +109,7 @@ const Login = () => {
             </a>
           </div>
         </form>
+      </Form>
     </>
   )
 }
