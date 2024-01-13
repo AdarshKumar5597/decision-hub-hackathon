@@ -10,6 +10,7 @@ const UserDbName = 'User';
 const { promisify } = require("util");
 
 // this function will return you jwt token
+require("dotenv").config();
 const signToken = (userId) => jwt.sign({ userId }, process.env.JWT_SECRET);
 
 // this function will return whether the password at the time of login is properly hashed and matches with the hashed password in user db
