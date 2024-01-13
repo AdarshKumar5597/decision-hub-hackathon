@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { setCreateRuleData } from '../../slices/createRuleSlice'
 import { createRule } from '../../services/operations/createRuleAPI'
 
-const CommonRuleForm = (props) => {
+const CommonRuleForm = () => {
 
 
   const {
@@ -19,23 +19,16 @@ const CommonRuleForm = (props) => {
   const dispatch = useDispatch();
 
   const [result, setResult] = useState("")
-  const [loading, setLoading] = useState(false)
-
 
   const onSubmit = async (data) => {
 
-    console.log(data.ruleDesc)
-    setLoading(true)
     let result = await createRule(data.ruleDesc);
     if (result) {
       dispatch(setCreateRuleData(result));
       setValue("ruleDesc", "");
     }
     setResult(result);
-    setLoading(false);
   }
-
-
 
   return (
     <div className={`w-[1000px] h-[600px] relative`}>

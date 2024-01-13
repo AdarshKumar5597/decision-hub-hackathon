@@ -20,7 +20,7 @@ const Navbar = () => {
                                     className={`${matchRoute(link?.path)
                                             ? "text-yellow-300 bg-green-800 shadow-green-300 shadow-sm"
                                             : "text-white"
-                                        } flex items-center justify-center w-[5rem] h-[2.5rem] rounded-md transition-all duration-200`}
+                                        } flex items-center justify-center min-w-[7rem] h-[2.5rem] rounded-md transition-all duration-200 px-2`}
                                 >
                                     {link.title}
                                 </p>
