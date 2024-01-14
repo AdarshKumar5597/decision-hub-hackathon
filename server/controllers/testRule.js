@@ -79,11 +79,11 @@ exports.testRule = async (req, res) => {
         console.log('parameters:', parameters);
 
         const prompt = `description: ${rule.name}, parameters: ${parameters}
-        generate just response of the above description in json format without any explanation
+        generate just response of the above description in given json format without any explanation
         {
         'status':'OK',
         'message':'message',
-        'sqlQuery':'your query',
+        'sqlQuery':'Generate the SQL query of the description based on parameters if it is mentioned otherwise just mention sql query here',
         }`;
 
         console.log('prompt:', prompt);

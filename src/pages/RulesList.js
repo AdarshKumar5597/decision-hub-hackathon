@@ -107,7 +107,7 @@ const RulesList = () => {
                 required
                 type="text"
                 id="oldruleDesc"
-                value={oldRule.name}
+                value={oldRule.description}
                 placeholder="Enter Old Rule Description"
                 style={{
                   boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",

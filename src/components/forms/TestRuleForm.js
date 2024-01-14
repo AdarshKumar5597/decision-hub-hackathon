@@ -11,17 +11,13 @@ const TestRuleForm = (props) => {
 
     
     const operate = props.operate;
-    const setLoading = props.setLoading;
     let parametersList = props.parametersList;
 
     const onSubmit = async (data) => {
-        setLoading(true);
-        console.log(data);
         let result = await operate(null, data);
         if (result) {
             setTestResult(result);
         }
-        setLoading(false);
     };
 
     const [testResult, setTestResult] = useState("");

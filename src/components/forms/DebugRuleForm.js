@@ -5,7 +5,6 @@ import createrulebg from '../common/createrulebg.jpg'
 const DebugRuleForm = (props) => {
 
     const operate = props.operate;
-    const setLoading = props.setLoading;
     let oldRule = props.oldRule;
 
     const [debugResult, setDebugResult] = useState("");
@@ -19,12 +18,10 @@ const DebugRuleForm = (props) => {
 
 
     const onSubmit = async (data) => {
-        setLoading(true);
         let result = await operate(data.oldruleDesc, null);
         if (result) {
             setDebugResult(result);
         }
-        setLoading(false);
     };
     return (
         <div className={`w-[1000px] h-[600px] relative`}>
@@ -43,7 +40,7 @@ const DebugRuleForm = (props) => {
                         required
                         type="text"
                         id="oldruleDesc"
-                        value={oldRule.name}
+                        value={oldRule.description}
                         placeholder="Enter Old Rule Description"
                         style={{
                             boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",

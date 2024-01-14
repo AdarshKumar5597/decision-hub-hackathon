@@ -10,7 +10,7 @@ exports.getAllRules = async (req, res) => {
 
         const rulesCollection = client.db().collection(RulesCollection);
 
-        const allRules = await rulesCollection.find({ }).toArray();
+        const allRules = await rulesCollection.find({ userId: req.userId }).toArray();
 
         res.status(200).json({
             success: true,
