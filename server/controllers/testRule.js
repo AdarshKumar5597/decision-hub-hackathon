@@ -78,7 +78,7 @@ exports.testRule = async (req, res) => {
         const parameters = JSON.stringify(parameterValues);
         console.log('parameters:', parameters);
 
-        const prompt = `description: ${rule.name}, parameters: ${parameters}
+        const prompt = `description: ${rule.description}, parameters: ${parameters}
         generate just response of the above description in given json format without any explanation
         {
         'status':'OK',
