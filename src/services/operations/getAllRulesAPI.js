@@ -6,11 +6,11 @@ import { apiConnector } from "../apiconnector";
 
 const { GET_ALL_RULES_API } = endpoints;
 
-export const getAllRules = async () => {
+export const getAllRules = async (token) => {
     const toastId = toast.loading("Loading...");
     let result = null;
     try {
-        const response = await apiConnector("GET", GET_ALL_RULES_API);
+        const response = await apiConnector("GET", GET_ALL_RULES_API, null, { authorization: "Bearer " + token  });
         console.log("-------------GET ALL RULES RESPONSE------------------");
         if (!response?.data?.success) {
             throw new Error("Could Not Get All Rules.");

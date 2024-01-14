@@ -6,11 +6,11 @@ import { apiConnector } from "../apiconnector";
 
 const { DEBUG_RULE_API } = endpoints;
 
-export const debugRule = async (ruleDesc) => {
+export const debugRule = async (ruleDesc, token) => {
     const toastId = toast.loading("Loading...");
     let result = null;
     try {
-        const response = await apiConnector("POST", DEBUG_RULE_API, { ruleDescription : ruleDesc });
+        const response = await apiConnector("POST", DEBUG_RULE_API, { ruleDescription : ruleDesc }, { authorization: "Bearer " + token  });
         console.log("-------------DEBUG RULE RESPONSE------------------");
         if (!response?.data?.success) {
             throw new Error("Could Not Debug Rule.");

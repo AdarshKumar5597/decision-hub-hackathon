@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const { getClient } = require('../config/database');
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const { ObjectId } = require('mongodb');
 
 const filterObj = require("../utils/filterObj");
 
@@ -152,7 +153,7 @@ exports.protect = async (req, res, next) => {
     client = getClient(); // Use the global connection
     const User = client.db().collection(UserDbName);
 
-    const this_user = await User.findById(decoded.userId);
+    const this_user = await User.findOne({ _id: new ObjectId(decoded.userId)});
 
     if (!this_user) {
         return res.status(401).json({
@@ -161,6 +162,6 @@ exports.protect = async (req, res, next) => {
     }
 
     // GRANT ACCESS TO PROTECTED ROUTE
-    req.user = this_user;
+    req.userId = this_user._id;
     next();
 };

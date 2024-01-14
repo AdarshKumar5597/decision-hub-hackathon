@@ -74,11 +74,11 @@ exports.modifyRule = async (req, res) => {
 
         const getRule = await rulesCollection.findOneAndUpdate(
             {
-                name: oldRuleDescription
+                description: oldRuleDescription
             },
             {
                 $set: {
-                    name: newRuleDescription,
+                    description: newRuleDescription,
                     correspondingRule: newSqlQuery
                 }
             },

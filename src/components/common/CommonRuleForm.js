@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import createrulebg from './createrulebg.jpg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { setCreateRuleData } from '../../slices/createRuleSlice'
 import { createRule } from '../../services/operations/createRuleAPI'
 
 const CommonRuleForm = () => {
 
+  const { token } = useSelector((state) => state.authReducer);
 
   const {
     register,
@@ -22,10 +23,11 @@ const CommonRuleForm = () => {
 
   const onSubmit = async (data) => {
 
-    let result = await createRule(data.ruleDesc);
+    let result = await createRule(data.ruleName, data.ruleDesc, token);
     if (result) {
       dispatch(setCreateRuleData(result));
       setValue("ruleDesc", "");
+      setValue("ruleName", "");
     }
     setResult(result);
   }
@@ -39,6 +41,33 @@ const CommonRuleForm = () => {
         onSubmit={handleSubmit(onSubmit)}>
 
         <div className="flex flex-col gap-x-4 w-full gap-y-4">
+
+
+
+          <label className='flex flex-col items-start' htmlFor='ruleName'>
+            <p className="mb-1 text-[1rem] font-bold leading-[1.375rem] text-green-950">
+              Rule Name <sup className="text-green-950">*</sup>
+            </p>
+          </label>
+          <input
+            required
+            type="text"
+            id="ruleName"
+            placeholder="Enter Rule Name"
+            style={{
+              boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+            }}
+            className="w-[calc(0.5*1000px)] h-[calc(0.10*600px)] rounded-[0.5rem] bg-white p-[12px] text-green-950 font-bold"
+            {...register("ruleName", { required: true })}
+          />
+
+          {errors.ruleName && (
+            <span className="ml-2 text-xs tracking-wide text-red-600">
+              Rule Name is required
+            </span>
+          )}
+
+
           <label className='flex flex-col ' htmlFor='ruleDesc'>
             <p className="mb-1 text-[2rem] font-bold leading-[1.375rem] text-green-950">
               Rule Description <sup className="text-green-950">*</sup>
@@ -61,6 +90,8 @@ const CommonRuleForm = () => {
               Rule Description is required
             </span>
           )}
+
+
           <button type='submit' className=' bg-green-900 text-white font-bold p-5 rounded-md w-[calc(0.2*1000px)] mx-auto'>
             submit
           </button>

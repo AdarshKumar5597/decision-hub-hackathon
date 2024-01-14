@@ -6,11 +6,11 @@ import { apiConnector } from "../apiconnector";
 
 const { MODIFY_RULE_API } = endpoints;
 
-export const modifyRule = async (oldRuleDesc, newRuleDesc) => {
-    const toastId = toast.loading("Loading...");
+export const modifyRule = async (oldRuleDesc, newRuleDesc, token) => {
+    const toastId = toast.loading("Modifying Rule...");
     let result = null;
     try {
-        const response = await apiConnector("POST", MODIFY_RULE_API, { oldRuleDescription : oldRuleDesc , newRuleDescription : newRuleDesc});
+        const response = await apiConnector("POST", MODIFY_RULE_API, { oldRuleDescription : oldRuleDesc , newRuleDescription : newRuleDesc}, { authorization: "Bearer " + token  });
         console.log("-------------MODIFY RULE RESPONSE------------------");
         if (!response?.data?.success) {
             throw new Error("Could Not Modify Rule.");

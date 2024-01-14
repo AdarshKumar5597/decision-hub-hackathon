@@ -12,13 +12,13 @@ exports.createRule = async (req, res) => {
     let client;
 
     try {
+        const ruleName = req.body.ruleName;
         const ruleDescription = req.body.ruleDescription;
-        console.log(ruleDescription);
 
-        if (!ruleDescription) {
+        if (!ruleDescription || !ruleName) {
             return res.status(400).json({
                 success: false,
-                message: 'Rule description cannot be empty.',
+                message: 'Rule Name and Rule description cannot be empty.',
             });
         }
 
@@ -40,8 +40,6 @@ exports.createRule = async (req, res) => {
         }
         generate any one kind of response`;
 
-        console.log('prompt:', prompt);
-
         const response = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
             messages: [
@@ -53,15 +51,9 @@ exports.createRule = async (req, res) => {
             max_tokens: 100,
         });
 
-        console.log('\nresponse:', response.choices[0].message.content);
-
         const jsonResponse = JSON.parse(response.choices[0].message.content);
 
-        console.log(jsonResponse);
-
         const sqlQuery = jsonResponse.sqlQuery;
-
-        console.log(sqlQuery);
 
         client = getClient(); // Use the global connection
 
@@ -69,9 +61,13 @@ exports.createRule = async (req, res) => {
         const ruleParametersCollection = client.db().collection(RuleParametersCollection);
 
         const result = await rulesCollection.insertOne({
-            name: ruleDescription,
+            name: ruleName,
+            description: ruleDescription,
             correspondingRule: sqlQuery,
+            userId: req.userId
         });
+
+        console.log(result)
 
         const newRuleId = result.insertedId;
 

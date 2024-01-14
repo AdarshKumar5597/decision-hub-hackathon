@@ -7,8 +7,13 @@ import { debugRule } from '../services/operations/debugRuleAPI';
 import DebugRuleForm from '../components/forms/DebugRuleForm';
 import TestRuleForm from '../components/forms/TestRuleForm';
 import { ruleHasParameters, testRule } from '../services/operations/testRuleAPI';
+import { useSelector } from 'react-redux';
 
 const RulesList = () => {
+
+  const { token } = useSelector((state) => state.authReducer);
+
+
   const {
     register,
     handleSubmit,
@@ -18,7 +23,6 @@ const RulesList = () => {
 
   const location = useLocation();
   const [rules, setAllRules] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [onClicked, setOnClicked] = useState(false);
   const [oldRule, setOldRule] = useState(null);
   const [parametersList, setParametersList] = useState([]);
@@ -31,16 +35,16 @@ const RulesList = () => {
     if (onClicked && matchRoute("/modify")) {
       let oldRuleDescription = oldRuleDesc;
       let newRuleDescription = newRuleDesc;
-      let result = await modifyRule(oldRuleDescription, newRuleDescription);
+      let result = await modifyRule(oldRuleDescription, newRuleDescription, token);
       return result;
     }
     if (onClicked && matchRoute("/debug")) {
       let oldRuleDescription = oldRuleDesc;
-      let result = await debugRule(oldRuleDescription);
+      let result = await debugRule(oldRuleDescription, token);
       return result;
     }
     if (onClicked && matchRoute("/test")) {
-      let result = await testRule(oldRule._id, newRuleDesc);
+      let result = await testRule(oldRule._id, newRuleDesc, token);
       return result;
     }
   };
@@ -49,7 +53,7 @@ const RulesList = () => {
     setOnClicked(!onClicked);
     setOldRule(rule);
     if (matchRoute("/test")) {
-      let result = await ruleHasParameters(rule._id);
+      let result = await ruleHasParameters(rule._id, token);
       if (result) {
         setParametersList(result);
       }
@@ -60,13 +64,11 @@ const RulesList = () => {
 
 
   const onSubmit = async (data) => {
-    setLoading(true);
     let result = await operate(data.oldruleDesc, data.newruleDesc);
     if (result) {
       changeOldRuleOnClick(result);
       getAllRulesFunc();
     }
-    setLoading(false);
   };
 
 
@@ -74,12 +76,10 @@ const RulesList = () => {
 
 
   const getAllRulesFunc = async () => {
-    setLoading(true);
     let rulesData = await getAllRules();
     if (rulesData) {
       setAllRules(rulesData);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -151,9 +151,9 @@ const RulesList = () => {
         </div>
       ) : 
 
-      (onClicked && matchRoute("/debug")) ? (<DebugRuleForm operate = {operate} setLoading = {setLoading} oldRule={oldRule}/>) :
+      (onClicked && matchRoute("/debug")) ? (<DebugRuleForm operate = {operate} oldRule={oldRule}/>) :
 
-      (onClicked && matchRoute("/test")) ? (parametersList.length > 0 ? (<TestRuleForm operate = {operate} setLoading = {setLoading} oldRule={oldRule} parametersList={parametersList}/>) : (<DebugRuleForm operate = {operate} setLoading = {setLoading} oldRule={oldRule}/>)) :
+      (onClicked && matchRoute("/test")) ? (parametersList.length > 0 ? (<TestRuleForm operate = {operate} oldRule={oldRule} parametersList={parametersList}/>) : (<DebugRuleForm operate = {operate} oldRule={oldRule}/>)) :
       
       (
 
@@ -169,13 +169,13 @@ const RulesList = () => {
                   <span className='flex items-center justify-start rounded-md bg-green-500 text-white p-1 pl-3 w-40'>Rule :</span> {rule.name}
                 </p>
                 <p className='flex gap-x-2 items-center font-semibold text-green-950'>
-                  <span className='flex items-center justify-start rounded-md bg-green-500 text-white p-1 pl-3 w-40'>SQL Query : </span> {rule.correspondingRule}
+                  <span className='flex items-center justify-start rounded-md bg-green-500 text-white p-1 pl-3 w-40'>Description : </span> {rule.description}
                 </p>
               </div>
             ))
           ) : (
             <div className='flex flex-col items-center justify-center rounded-md bg-gradient-to-r from-teal-400 to-yellow-200 p-12'>
-              <p className='font-bold text-green-950'>No Rules</p>
+              <p className='font-bold text-green-950'>No Rules, Create Some Rules</p>
             </div>
           )}
         </div>

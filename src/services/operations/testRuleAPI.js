@@ -6,11 +6,11 @@ import { apiConnector } from "../apiconnector";
 
 const { RULE_HAS_PARAMETERS_API, TEST_RULE_API } = endpoints;
 
-export const ruleHasParameters = async (id) => {
+export const ruleHasParameters = async (id, token) => {
     const toastId = toast.loading("Loading...");
     let result = null;
     try {
-        const response = await apiConnector("GET", RULE_HAS_PARAMETERS_API + id, null, null, { id : id });
+        const response = await apiConnector("GET", RULE_HAS_PARAMETERS_API + id, null, { authorization: "Bearer " + token  }, { id : id });
         console.log("------------- RULE HAS PARAMETERS RESPONSE------------------");
         if (!response?.data?.success) {
             throw new Error("Rule does not has parameters.");
@@ -29,11 +29,11 @@ export const ruleHasParameters = async (id) => {
     return result;
 }
 
-export const testRule = async (id, parameters) => {
+export const testRule = async (id, parameters, token) => {
     const toastId = toast.loading("Loading...");
     let result = null;
     try {
-        const response = await apiConnector("POST", TEST_RULE_API + id, parameters , null, { id :  id });
+        const response = await apiConnector("POST", TEST_RULE_API + id, parameters , { authorization: "Bearer " + token  }, { id :  id });
         console.log("-------------TEST RULE RESPONSE------------------");
         if (!response?.data?.success) {
             throw new Error("Rule Testing Failed.");
