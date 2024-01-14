@@ -44,6 +44,7 @@ const RulesList = () => {
       return result;
     }
     if (onClicked && matchRoute("/test")) {
+      console.log(token);
       let result = await testRule(oldRule._id, newRuleDesc, token);
       return result;
     }
@@ -76,7 +77,8 @@ const RulesList = () => {
 
 
   const getAllRulesFunc = async () => {
-    let rulesData = await getAllRules();
+    console.log(token);
+    let rulesData = await getAllRules(token);
     if (rulesData) {
       setAllRules(rulesData);
     }
