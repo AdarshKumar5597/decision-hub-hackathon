@@ -8,7 +8,7 @@ const {getAllRules} = require('../controllers/viewAllRules')
 const {ruleHasParameters, testRule, sampleRoute} = require('../controllers/testRule')
 const {dbFileQuery} = require('../controllers/DbFileQuery')
 const {databaseFileUpload} = require('../controllers/FileUpload')
-const {chatbotCreateRule, fetchAllRulesForChatbot} = require('../controllers/chatbotController')
+const {chatbotCreateRule, fetchAllRulesForChatbot, chatbotCompletions} = require('../controllers/chatbotController')
 const {protect} = require("../controllers/auth")
 
 router.post('/createRule', protect, createRule)
