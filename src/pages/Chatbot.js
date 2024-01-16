@@ -75,12 +75,20 @@ const Chatbot = () => {
         }
     }, [message, currentTitle])
 
-    useEffect(async () => {
-        let result = await fetchChatbotRules(token)
-        if (result) {
-            setChatbotdata(result);
+    const getChatbotRules = async () => {
+        try {
+            let result = await fetchChatbotRules(token)
+            if (result) {
+                setChatbotdata(result);
+            }
+        } catch (error) {
+            console.log(error)
         }
-    }, [chatbotData])
+    }
+
+    useEffect(() => {
+        getChatbotRules()
+    }, [])
 
 
     const currentChat = previousChats.filter(prevChats => prevChats.title === currentTitle)

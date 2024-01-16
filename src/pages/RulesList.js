@@ -14,8 +14,7 @@ import { toast } from "react-hot-toast"
 import { Navigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 const RulesList = () => {
-  const { token } = useSelector((state) => state.authReducer)
-
+  const { token, isLoggedIn } = useSelector((state) => state.authReducer)
   const {
     register,
     handleSubmit,
@@ -30,6 +29,15 @@ const RulesList = () => {
   const [onClicked, setOnClicked] = useState(false)
   const [oldRule, setOldRule] = useState(null)
   const [parametersList, setParametersList] = useState([])
+  useEffect(() => {
+    token ? getAllRulesFunc() : console.log("use effect triggered")
+  }, [])
+
+  if (isLoggedIn === false) {
+    return <Navigate to="/auth/login" />
+  }
+
+  
 
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname)
@@ -84,11 +92,6 @@ const RulesList = () => {
       setAllRules(rulesData)
     }
   }
-
-  useEffect(() => {
-    console.log("use effect triggered")
-    getAllRulesFunc()
-  }, [])
 
   const onClickSearch = () => {
     if (active) {
