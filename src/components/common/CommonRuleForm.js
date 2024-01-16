@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
-import { setCreateRuleData } from "../../slices/createRuleSlice"
 import { createRule } from "../../services/operations/createRuleAPI"
 import RulesList from "../../pages/RulesList"
 const CommonRuleForm = () => {
@@ -14,14 +13,11 @@ const CommonRuleForm = () => {
     formState: { errors },
   } = useForm()
 
-  const dispatch = useDispatch()
-
   const [result, setResult] = useState("")
 
   const onSubmit = async (data) => {
     let result = await createRule(data.ruleName, data.ruleDesc, token)
     if (result) {
-      dispatch(setCreateRuleData(result))
       setValue("ruleDesc", "")
       setValue("ruleName", "")
     }
@@ -101,7 +97,7 @@ const CommonRuleForm = () => {
           </div>
         </div>
       </div>
-      <div className="w-full max-h-[18rem] scrollbar-hide overflow-y-scroll">
+      <div className="w-full max-h-[18rem]">
         <RulesList />
       </div>
     </div>

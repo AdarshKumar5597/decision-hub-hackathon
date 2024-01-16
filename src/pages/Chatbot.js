@@ -20,6 +20,11 @@ const Chatbot = () => {
         setCurrentTitle(null)
     }
 
+    const handleNewChat = () => {
+        createNewChat()
+        getChatbotRules()
+    }
+
     const getMessages = async () => {
 
 
@@ -98,7 +103,7 @@ const Chatbot = () => {
     return (
         <div className='app bg-[#212121da] flex my-5 w-[1080px] mx-auto'>
             <div className='side-bar bg-[#202123] h-[85vh] w-[244px] flex flex-col justify-between'>
-                <button onClick={createNewChat} className='border border-solid border-white border-opacity-50 bg-transparent rounded-[5px] p-[10px] m-[10px]'>
+                <button onClick={handleNewChat} className='border border-solid border-white border-opacity-50 bg-transparent rounded-[5px] p-[10px] m-[10px]'>
                     + New Chat
                 </button>
                 <ul className='history p-[10px] m-[10px] h-[100%] max-h-[calc(85vh - 45px)] overflow-y-scroll scrollbar-hide'>

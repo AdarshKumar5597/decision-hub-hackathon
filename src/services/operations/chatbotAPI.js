@@ -10,7 +10,7 @@ export const fetchChatbotRules = async (token) => {
     const toastId = toast.loading("Loading...");
     let result = null;
     try {
-        const response = await apiConnector("GET", CHATBOT_RULES_API, { authorization: "Bearer " + token  });
+        const response = await apiConnector("GET", CHATBOT_RULES_API, null,  { authorization: "Bearer " + token  });
         console.log("-------------CHAT BOT RULES FETCH RESPONSE------------------");
         if (!response?.data?.success) {
             throw new Error("Could Not Fetch Chat Bot Rules.");

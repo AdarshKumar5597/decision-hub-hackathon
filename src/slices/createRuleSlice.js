@@ -1,23 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    createRuleData: null,
-    loading: false
+    formToggle: true,
 }
 
 const createRuleSlice = createSlice({
     name: "createRule",
     initialState: initialState,
     reducers: {
-        setCreateRuleData(state, value) {
-            state.createRuleData = value.payload;
-        },
-        setLoading(state, value) {
-            state.loading = value.payload;
+        setFormToggle(state, value) {
+            state.formToggle = !state.formToggle
         }
     }
 });
 
-export const { setCreateRuleData, setLoading } = createRuleSlice.actions;
-
 export default createRuleSlice.reducer;
+
+export function SetFormToggle() {
+    return async (dispatch, getState) => {
+        dispatch(createRuleSlice.actions.setFormToggle());
+    }
+}

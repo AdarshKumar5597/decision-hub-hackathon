@@ -8,13 +8,17 @@ import { debugRule } from "../services/operations/debugRuleAPI"
 import DebugRuleForm from "../components/forms/DebugRuleForm"
 import TestRuleForm from "../components/forms/TestRuleForm"
 import { ruleHasParameters, testRule } from "../services/operations/testRuleAPI"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import plus from "./Assets/plus-solid.svg"
 import { toast } from "react-hot-toast"
 import { Navigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { SetFormToggle } from "../slices/createRuleSlice"
 const RulesList = () => {
   const { token, isLoggedIn } = useSelector((state) => state.authReducer)
+  const { formToggle } = useSelector((state) => state.createRule)
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -29,6 +33,7 @@ const RulesList = () => {
   const [onClicked, setOnClicked] = useState(false)
   const [oldRule, setOldRule] = useState(null)
   const [parametersList, setParametersList] = useState([])
+
   useEffect(() => {
     token ? getAllRulesFunc() : console.log("use effect triggered")
   }, [])
@@ -186,8 +191,10 @@ const RulesList = () => {
       ) : (
         <div className="flex flex-col gap-y-5 py-3 w-full mx-6">
           <div className="flex flex-row justify-between items-center gap-x-8">
-            <Link to="/create">
-              <button className="rounded-xl p-2 px-3 bg-gradient-to-tl from-rose-500 to-indigo-700 flex flex-row items-center space-x-3">
+            <Link to={formToggle ? "/create" : "/"}>
+              <button className="rounded-xl p-2 px-3 bg-gradient-to-tl from-rose-500 to-indigo-700 flex flex-row items-center space-x-3" onClick={() => {
+                dispatch(SetFormToggle());
+              }}>
                 <img src={plus} alt="plus" className="h-5 w-5" />
                 <h1 className="hidden md:block text-white font-semibold text-[1.1rem]">
                   Create Rule
@@ -211,7 +218,7 @@ const RulesList = () => {
               </button>
             </div>
           </div>
-          <div className=" space-y-5">
+          <div className={`space-y-5 overflow-y-scroll scrollbar-hide ${!formToggle && "max-h-[27vh]"}`}>
             {rules.length > 0 ? (
               search.length > 0 ? (
                 search.map((rule, key) => (
