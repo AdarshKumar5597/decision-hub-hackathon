@@ -12,12 +12,12 @@ import { useSelector } from "react-redux"
 function Wrapper({ children }) {
 
   const { isLoggedIn } = useSelector((state) => state.authReducer)
+  const location = useLocation()
 
   if (isLoggedIn === false) {
     return <Navigate to="/auth/login" />
   }
 
-  const location = useLocation()
   return (
     <div className="bg-[#111526] w-[90vw] md:h-[95vh] h-[76vh] my-5 rounded-xl mx-5">
       {location.pathname === "/" && <RulesList />}
