@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useSelector } from 'react-redux';
+import { fetchChatbotRules } from '../services/operations/chatbotAPI';
 
 const Chatbot = () => {
 
+    const { token } = useSelector((state) => state.authReducer)
 
     const [value, setValue] = useState(null);
     const [message, setMessage] = useState(null);
     const [previousChats, setPreviousChats] = useState([]);
     const [currentTitle, setCurrentTitle] = useState(null);
+    const [chatbotData, setChatbotdata] = useState([]);
+
+
     const createNewChat = () => {
         setMessage(null)
         setValue("")
@@ -22,7 +28,7 @@ const Chatbot = () => {
             body: JSON.stringify({
                 message: JSON.stringify({
                     "currentQuestion": value,
-                    "previousChats": currentChat
+                    "rules": chatbotData,
                 })
             }),
             headers: {
@@ -32,7 +38,6 @@ const Chatbot = () => {
         try {
             const response = await fetch("https://express-backend-cdlo.onrender.com/api/v1/rules/completions", options)
             const data = await response.json()
-            console.log(data);
             setMessage(data.choices[0].message)
 
         } catch (error) {
@@ -70,12 +75,17 @@ const Chatbot = () => {
         }
     }, [message, currentTitle])
 
-    console.log(previousChats);
+    useEffect(async () => {
+        let result = await fetchChatbotRules(token)
+        if (result) {
+            setChatbotdata(result);
+        }
+    }, [chatbotData])
+
 
     const currentChat = previousChats.filter(prevChats => prevChats.title === currentTitle)
     const uniquetitles = Array.from(new Set(previousChats.map(prevChats => prevChats.title)))
 
-    console.log(uniquetitles)
 
     return (
         <div className='app bg-[#212121da] flex my-5 w-[1080px] mx-auto'>

@@ -11,6 +11,7 @@ export const endpoints = {
     TEST_RULE_API : BASE_URL + "/testRule/",
     UPLOAD_DBFILE_API : BASE_URL + "/uploaddbfile",
     DBFILE_QUERY_API : BASE_URL + "/dbfilequery",
+    CHATBOT_RULES_API : BASE_URL + "/chatbotrules",
 }
 
 export const authEndpoints = {

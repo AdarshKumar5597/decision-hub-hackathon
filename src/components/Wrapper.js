@@ -5,10 +5,18 @@ import ModifyRule from "./ModifyRule"
 import RuleCreate from "./RuleCreate"
 import TestRule from "./TestRule"
 import RulesList from "../pages/RulesList"
-import { useLocation } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom"
 import Chatbot from "../pages/Chatbot"
+import { useSelector } from "react-redux"
 
 function Wrapper({ children }) {
+
+  const { isLoggedIn } = useSelector((state) => state.authReducer)
+
+  if (isLoggedIn === false) {
+    return <Navigate to="/auth/login" />
+  }
+
   const location = useLocation()
   return (
     <div className="bg-[#111526] w-[90vw] md:h-[95vh] h-[76vh] my-5 rounded-xl mx-5">

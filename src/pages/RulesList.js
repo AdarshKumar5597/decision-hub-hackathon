@@ -14,7 +14,7 @@ import { toast } from "react-hot-toast"
 import { Navigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 const RulesList = () => {
-  const { token, isLoggedIn } = useSelector((state) => state.authReducer)
+  const { token } = useSelector((state) => state.authReducer)
 
   const {
     register,
@@ -101,10 +101,6 @@ const RulesList = () => {
     if (input === "") {
       setActive((prev) => !prev)
     }
-  }
-
-  if (isLoggedIn === false) {
-    return <Navigate to="/auth/login" />
   }
 
   return (
