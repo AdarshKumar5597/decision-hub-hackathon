@@ -6,6 +6,7 @@ import RuleCreate from "./RuleCreate"
 import TestRule from "./TestRule"
 import RulesList from "../pages/RulesList"
 import { useLocation } from "react-router-dom"
+import Chatbot from "../pages/Chatbot"
 
 function Wrapper({ children }) {
   const location = useLocation()
@@ -17,6 +18,7 @@ function Wrapper({ children }) {
       {location.pathname === "/modify" && <ModifyRule />}
       {location.pathname === "/test" && <TestRule />}
       {location.pathname === "/dbfilerule" && <DbFileRule />}
+      {location.pathname === "/chatbot" && <Chatbot />}
     </div>
   )
 }

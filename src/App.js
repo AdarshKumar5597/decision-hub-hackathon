@@ -32,6 +32,7 @@ function App() {
             <Route path="/modify" element={<Wrapper />} />
             <Route path="/test" element={<Wrapper />} />
             <Route path="/dbfilerule" element={<Wrapper />} />
+            <Route path="/chatbot" element={<Wrapper />} />
           </Routes>
         </div>
       )}

@@ -22,5 +22,6 @@ router.post('/testRule/:id', protect, testRule)
 router.post('/sampleRoute', sampleRoute)
 router.post('/dbfilequery', dbFileQuery)
 router.post('/uploaddbfile', databaseFileUpload)
+router.post("/completions", chatbotCompletions)
 
 module.exports = router
