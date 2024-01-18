@@ -1,11 +1,19 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { combineReducers } from "@reduxjs/toolkit"
+import storage from "redux-persist/lib/storage"
+import createRuleReducer from "../slices/createRuleSlice"
+import authReducer from "../slices/auth"
 
-import createRuleReducer from '../slices/createRuleSlice'
-import authReducer from '../slices/auth'
+const rootPersistConfig = {
+  key: "root",
+  storage,
+  keyPrefix: "redux-persist",
+  // whitelist: [],
+  // blacklist: [],
+}
 
 const rootReducer = combineReducers({
-    createRule: createRuleReducer,
-    authReducer: authReducer,
+  createRule: createRuleReducer,
+  authReducer: authReducer,
 })
 
-export default rootReducer
+export { rootPersistConfig, rootReducer }

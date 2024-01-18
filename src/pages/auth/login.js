@@ -2,39 +2,43 @@
 import React from "react"
 import Logo from "./auth_assets/Logo.png"
 import { useForm } from "react-hook-form"
-import { FormProvider as Form } from 'react-hook-form';
-import * as Yup from 'yup';
-import { useDispatch } from "react-redux";
-import { UserLogin } from "../../slices/auth";
-import { Alert } from "@mui/material";
+import { FormProvider as Form } from "react-hook-form"
+import * as Yup from "yup"
+import { useDispatch } from "react-redux"
+import { UserLogin } from "../../slices/auth"
+import { Alert } from "@mui/material"
 import { yupResolver } from "@hookform/resolvers/yup"
 
-
 const Login = () => {
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const LoginSchema = Yup.object({
-    email: Yup.string().required("Email is required").email("Email must be a valid Email address"),
-    password: Yup.string().required("Password is required")
+    email: Yup.string()
+      .required("Email is required")
+      .email("Email must be a valid Email address"),
+    password: Yup.string().required("Password is required"),
   })
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
   })
 
-  const { register, reset, setError, handleSubmit, formState: { errors, isSubmitSuccessful, isSubmitting } } = methods;
-
+  const {
+    register,
+    reset,
+    setError,
+    handleSubmit,
+    formState: { errors, isSubmitSuccessful, isSubmitting },
+  } = methods
 
   const onSubmit = async (data) => {
     try {
       // submit data to backend
       console.log(data)
-      dispatch(UserLogin(data));
-
+      dispatch(UserLogin(data))
     } catch (error) {
-      console.log(error);
-      reset();
+      console.log(error)
+      reset()
       setError("afterSubmit", {
         ...error,
         message: error.message,
@@ -51,7 +55,9 @@ const Login = () => {
           className="flex flex-col justify-center items-center md:w-1/2 w-full md:rounded-l-3xl rounded-3xl shadow-md text-white bg-black/20"
           onSubmit={handleSubmit(onSubmit)}
         >
-          {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+          {!!errors.afterSubmit && (
+            <Alert severity="error">{errors.afterSubmit.message}</Alert>
+          )}
 
           <img
             src={Logo}

@@ -1,10 +1,10 @@
 const express = require("express")
 const router = express.Router()
 
-const {createRule} = require('../controllers/createRule')
+const {createRule, createSqlQuery, addToParameterList} = require('../controllers/createRule')
 const {debugRule} = require('../controllers/debugRule')
 const {modifyRule} = require('../controllers/modifyRule')
-const {getAllRules} = require('../controllers/viewAllRules')
+const {getAllRules, getAllparameter} = require('../controllers/viewAllRules')
 const {ruleHasParameters, testRule, sampleRoute} = require('../controllers/testRule')
 const {dbFileQuery} = require('../controllers/DbFileQuery')
 const {databaseFileUpload} = require('../controllers/FileUpload')
@@ -23,5 +23,8 @@ router.post('/sampleRoute', sampleRoute)
 router.post('/dbfilequery', dbFileQuery)
 router.post('/uploaddbfile', databaseFileUpload)
 router.post("/completions", chatbotCompletions)
+router.post("/sqlquery", createSqlQuery)
+router.post("/addparameters", addToParameterList)
+router.get("/getallparams", getAllparameter)
 
 module.exports = router
