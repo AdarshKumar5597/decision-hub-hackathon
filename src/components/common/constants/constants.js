@@ -14,5 +14,9 @@ export const NavbarLinks = [
   {
     title: "Rule Builder",
     path: "/rulebuilder",
-  }
+  },
+  {
+    title: "Testing",
+    path: "/test",
+  },
 ]

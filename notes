@@ -1,1 +1,8 @@
 Home - Write a rule description and sql query is generated
+
+<!-- TestRule - create the parameter list testing here (change content of TestRule and add TestRuleForm Content) -->
+<!-- CommonRuleForm - create the "create strategy" page here (transfer content of this page to rule create page) -->
+
+ModifyRule - create the "modify and view" page here
+
+createRuleAPI - sudden changes
