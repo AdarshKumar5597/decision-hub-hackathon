@@ -1,2 +1,3 @@
 _id,name,description,userId
-65a38e5f7dc744bbac6f0ede,Loan Approval,Approve a Loan only if The customer has stable employment and principle amound greater than 50000,65a1bb244a30ac6286ba299f
+65a6b91da9a09c4a7122ba9d,Loan Approval,Approve a Loan only if The customer has stable employment and principle amound greater than 50000,65a30c57ec8e7ac1fe1ba14d
+65a6bba0e683b84d977768ce,Car Loan,Approve a loan if the person has driving license and income above 15 lakhs per annum,65a30c57ec8e7ac1fe1ba14d
