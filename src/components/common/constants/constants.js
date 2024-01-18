@@ -11,4 +11,8 @@ export const NavbarLinks = [
     title: "Chatbot",
     path: "/chatbot",
   },
+  {
+    title: "Rule Builder",
+    path: "/rulebuilder",
+  }
 ]

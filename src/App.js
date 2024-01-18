@@ -16,6 +16,8 @@ import DbFileRule from "./components/DbFileRule.js"
 import Chatbot from "./pages/Chatbot.js"
 import { useSelector } from "react-redux"
 import Navbar from "./components/common/Navbar.js"
+import RuleBuilder from "./pages/RuleBuilder.js"
+import AddRuleParamsForm from "./components/forms/AddRuleParamsForm.js"
 
 function App() {
   const location = useLocation()
@@ -42,6 +44,8 @@ function App() {
             <Route path="/test" element={<TestRule />} />
             <Route path="/dbfilerule" element={<DbFileRule />} />
             <Route path="/chatbot" element={<Chatbot />} />
+            <Route path="/rulebuilder" element={<RuleBuilder />} />
+            <Route path="/addruleparams" element={<AddRuleParamsForm />} />
           </Routes>
           </div>
         </div>
