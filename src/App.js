@@ -10,6 +10,7 @@ import { useSelector } from "react-redux"
 import Navbar from "./components/common/Navbar.js"
 import RuleBuilder from "./pages/RuleBuilder.js"
 import AddRuleParamsForm from "./components/forms/AddRuleParamsForm.js"
+import Strategies from "./pages/Strategies.js"
 
 function App() {
   const location = useLocation()
@@ -35,6 +36,7 @@ function App() {
               <Route path="/chatbot" element={<Chatbot />} />
               <Route path="/rulebuilder" element={<RuleBuilder />} />
               <Route path="/addruleparams" element={<AddRuleParamsForm />} />
+              <Route path="/strategies" element={< Strategies/>} />
             </Routes>
           </div>
         </div>

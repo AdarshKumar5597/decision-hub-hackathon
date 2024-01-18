@@ -146,3 +146,50 @@ exports.sampleRoute = (req, res) => {
         });
     }
 };
+
+exports.test = async (req, res) => {
+    try {
+        const { formdata, rules } = req.body;
+
+        if (!formdata || !rules) {
+            return res.status(400).json({
+                success: false,
+                message: "Formdata cannot be empty",
+            });
+        }
+
+        const prompt = `formdata: ${rule.description}, rules: ${parameters}
+        generate just response of the above description in given json format without any explanation
+        {
+        'status':'OK',
+        'message':'message',
+        'sqlQuery':'Generate the SQL query of the description based on parameters if it is mentioned otherwise just mention sql query here',
+        }`;
+
+        console.log('prompt:', prompt);
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                {
+                    role: 'user',
+                    content: `${prompt}`,
+                },
+            ],
+            max_tokens: 100,
+        });
+
+        console.log('\nresponse:', response.choices[0].message.content);
+
+        const jsonResponse = JSON.parse(response.choices[0].message.content);
+
+        const sqlQuery = jsonResponse.sqlQuery;
+
+        res.status(200).json({
+            success: true,
+            message: sqlQuery,
+        });
+
+    } catch (error) {
+        
+    }
+}

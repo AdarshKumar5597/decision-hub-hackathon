@@ -1,8 +1,8 @@
-const BASE_URL = "https://express-backend-cdlo.onrender.com/api/v1/rules"
-const AUTH_URL = "https://express-backend-cdlo.onrender.com/api/v1/auth"
+// const BASE_URL = "https://express-backend-cdlo.onrender.com/api/v1/rules"
+// const AUTH_URL = "https://express-backend-cdlo.onrender.com/api/v1/auth"
 
-// const BASE_URL = "http://localhost:5000/api/v1/rules"
-// const AUTH_URL = "http://localhost:5000/api/v1/auth"
+const BASE_URL = "http://localhost:5000/api/v1/rules"
+const AUTH_URL = "http://localhost:5000/api/v1/auth"
 
 //ENDPOINTS
 export const endpoints = {
@@ -17,6 +17,9 @@ export const endpoints = {
   CHATBOT_RULES_API: BASE_URL + "/chatbotRules",
   ADD_PARAMETERS_API: BASE_URL + "/addparameters",
   GET_ALL_PARAMETERS: BASE_URL + "/getallparams",
+  ADD_STRATEGY_API: BASE_URL + "/add-strategy",
+  GET_ALL_RULES: BASE_URL + "/fetch-rules",
+  GET_ALL_STRATEGIES: BASE_URL + "/fetch-strategies",
 }
 
 export const authEndpoints = {

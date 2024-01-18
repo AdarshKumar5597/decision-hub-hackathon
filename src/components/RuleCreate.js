@@ -1,18 +1,10 @@
 import React, { useState } from "react"
 import { Navigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
 import RuleBuilder from "../pages/RuleBuilder"
+import { createStrategy } from "../services/operations/createRuleAPI"
+import { useSelector } from "react-redux"
 const RuleCreate = () => {
   const { isLoggedIn, token } = useSelector((state) => state.authReducer)
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm()
 
   const [strategyName, setStrategyName] = useState("")
   const [idArray, setIdArray] = useState([])
@@ -40,9 +32,12 @@ const RuleCreate = () => {
     // Display the strategy name
   }
 
-  const handleHeader = (e) => {
-    setStrategyName(e.target.value)
+
+  async function submitHandler() {
+    let result = await createStrategy(strategyName, rules);
   }
+
+
   console.log(names)
   console.log(rules)
 
@@ -60,7 +55,7 @@ const RuleCreate = () => {
           className="border border-gray-300 p-2 w-1/2 mx-8 text-black"
           type="text"
           value={strategyName}
-          onChange={handleHeader}
+          onChange={(e) => setStrategyName(e.target.value)}
         />
       </label>
       {/* <Link
@@ -100,7 +95,7 @@ const RuleCreate = () => {
         ))}
       </div>
       <div className="flex items-center justify-center">
-        <button className="text-blue-500 p-4 bg-white cursor-pointer mt-8 rounded-xl">
+        <button className="text-blue-500 p-4 bg-white cursor-pointer mt-8 rounded-xl" onClick={submitHandler}>
           submit
         </button>
       </div>

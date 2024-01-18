@@ -90,11 +90,11 @@ exports.createRule = async (req, res) => {
     }
 };
 
-exports.createSqlQuery = async (req, res) => {
+exports.createRuleCondition = async (req, res) => {
     let client;
 
     try {
-        const { rule, tableName } = req.body
+        const { rule } = req.body
 
         if (!rule) {
             return res.status(400).json({
@@ -103,11 +103,12 @@ exports.createSqlQuery = async (req, res) => {
             });
         }
 
-        const prompt = `Given Rule Format = ${rule} and table name: ${tableName}
-        Where each condition has a parentId specifying which rule it belongs and an operator which specifies relation between field and value.
-        Rules Can also have nested rule whose rules array length is 0.
-        Generate a sql query based on above rule.
-        Generate only SQL query.`;
+        const prompt = `Given Rule Format = ${rule}
+        There exists a parent rule object whose id is 0, And several conditions as objects whose parentId = id of rule to which it belongs.
+        Parent rule object can also have nested rule whose array length is 0 and parentId = id of rule to which it belongs, which can further have conditions in the similar manner.
+        Generate only JS conditional statement based on given rule format.`;
+
+        console.log("Rule Prompt: ", prompt);
 
         const response = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
@@ -181,3 +182,42 @@ exports.addToParameterList = async (req, res) => {
         console.log("Error: ", error);
     }
 }
+
+
+exports.createStrategy = async (req, res) => {
+    let client;
+
+    try {
+        const strategyName = req.body.strategyName;
+        const strategyRules = req.body.strategyRules;
+
+        if (!strategyName || strategyRules.length < 1) {
+            return res.status(400).json({
+                success: false,
+                message: 'Strategy Name and Strategy Rules cannot be empty.',
+            });
+        }
+
+        client = getClient();
+
+        const strategyCollection = client.db().collection('StrategyCollection');
+
+        const result = await strategyCollection.insertOne({
+            name: strategyName,
+            rules: strategyRules
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Strategy Created Successfully',
+            strategy: result
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `Something went wrong while creating Strategy - ${error}`,
+        });
+    } finally {
+        // Do not close the connection here; it will be managed globally
+    }
+};

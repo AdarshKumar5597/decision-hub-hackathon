@@ -4,26 +4,25 @@ import { toast } from "react-hot-toast"
 import { endpoints } from "../apis"
 import { apiConnector } from "../apiconnector"
 
-const { CREATE_RULE_API, ADD_PARAMETERS_API } = endpoints
+const { ADD_STRATEGY_API, ADD_PARAMETERS_API } = endpoints
 
-export const createRule = async (ruleName, ruleDesc, token) => {
+export const createStrategy = async (name, rules) => {
   const toastId = toast.loading("Loading...")
   let result = null
   try {
     const response = await apiConnector(
       "POST",
-      CREATE_RULE_API,
-      { ruleName: ruleName, ruleDescription: ruleDesc },
-      { authorization: "Bearer " + token }
+      ADD_STRATEGY_API,
+      { strategyName: name, strategyRules: rules },
     )
-    console.log("-------------CREATE RULE RESPONSE------------------")
+    console.log("-------------CREATE STRATEGY RESPONSE------------------")
     if (!response?.data?.success) {
-      throw new Error("Could Not Create New Rule.")
+      throw new Error("Could Not Create New Strategy.")
     }
-    toast.success("New Rule Created Successfully !!")
+    toast.success("New Strategy Created Successfully !!")
     result = response?.data?.message
   } catch (error) {
-    console.log("CREATE RULE API ERROR............", error)
+    console.log("CREATE STRATEGY API ERROR............", error)
     toast.error(error.message)
   }
   toast.dismiss(toastId)
@@ -50,3 +49,5 @@ export const addParameters = async (paramlist) => {
   toast.dismiss(toastId)
   return result
 }
+
+

@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast"
 import { endpoints } from "../apis"
 import { apiConnector } from "../apiconnector"
 
-const { GET_ALL_RULES_API, GET_ALL_PARAMETERS } = endpoints
+const { GET_ALL_RULES_API, GET_ALL_PARAMETERS, GET_ALL_STRATEGIES } = endpoints
 
 export const getAllRules = async (token) => {
   const toastId = toast.loading("Loading...")
@@ -40,6 +40,25 @@ export const getAllParameters = async () => {
     result = response?.data?.parameterList
   } catch (error) {
     console.log("GET ALL PARAMETERS API ERROR............", error)
+    toast.error(error.message)
+  }
+  toast.dismiss(toastId)
+  return result
+}
+
+export const getAllStrategy = async () => {
+  const toastId = toast.loading("Loading...")
+  let result = null
+  try {
+    const response = await apiConnector("GET", GET_ALL_STRATEGIES)
+    console.log("-------------GET ALL Strategies RESPONSE------------------")
+    if (!response?.data?.success) {
+      throw new Error("Could Not Get All Strategies.")
+    }
+    toast.success("All Strategies Fetched Successfully !!")
+    result = response?.data?.strategies
+  } catch (error) {
+    console.log("GET ALL Strategies API ERROR............", error)
     toast.error(error.message)
   }
   toast.dismiss(toastId)

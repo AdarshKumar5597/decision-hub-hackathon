@@ -53,3 +53,48 @@ exports.getAllparameter = async (req, res) => {
         })
     }
 }
+
+
+exports.getAllStrategyRules = async (req, res) => {
+    let client;
+
+    try {
+        client = getClient(); // Use the global connection
+
+        const strategyCollection = client.db().collection('StrategyCollection');
+
+        const allRules = await strategyCollection.find({ _id: req.strategyId }).toArray();
+
+        res.status(200).json({
+            success: true,
+            rulesList: allRules
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `Something went wrong while fetching all rules - ${error}`
+        });
+    }
+};
+
+exports.getAllStrategy = async (req, res) => {
+    let client;
+
+    try {
+        client = getClient(); // Use the global connection
+
+        let strategyCollection = client.db().collection('StrategyCollection');
+
+        let allStrategies = await strategyCollection.find({}).toArray();;
+
+        res.status(200).json({
+            success: true,
+            strategies: allStrategies
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `Something went wrong while fetching all rules - ${error}`
+        });
+    }
+};

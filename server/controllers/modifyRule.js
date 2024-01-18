@@ -113,3 +113,31 @@ exports.modifyRule = async (req, res) => {
         });
     }
 };
+
+
+exports.modifyStrategyRule = async (req, res) => {
+    let client;
+
+    try {
+        client = getClient();
+
+        const strategyCollection = client.db().collection('StrategyCollection');
+
+        const strategy = strategyCollection.find({_id: req.body.id});
+
+        const rules = strategy.rules;
+
+        rules.forEach(element => {
+            if (element[0].uniqueRuleId === req.body.rule.uniqueRuleId) {
+                element = [...req.body.rule]
+            }
+        });
+
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `Something went wrong while modifying rule - ${error}`
+        });
+    }
+};
