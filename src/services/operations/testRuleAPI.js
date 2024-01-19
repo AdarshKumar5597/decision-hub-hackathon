@@ -38,16 +38,15 @@ export const ruleHasParameters = async (id, token) => {
   return result
 }
 
-export const testRule = async (id, parameters, token) => {
+export const testRule = async (formdata , rules) => {
   const toastId = toast.loading("Loading...")
+  console.log("Formdata", formdata)
   let result = null
   try {
     const response = await apiConnector(
       "POST",
-      TEST_RULE_API + id,
-      parameters,
-      { authorization: "Bearer " + token },
-      { id: id }
+      TEST_RULE_API,
+      { formdata: formdata, rules: rules }
     )
     console.log("-------------TEST RULE RESPONSE------------------")
     if (!response?.data?.success) {
@@ -55,6 +54,7 @@ export const testRule = async (id, parameters, token) => {
     }
     toast.success("Rule Tested !!")
     result = response?.data?.message
+    console.log(result)
   } catch (error) {
     console.log("TEST RULE API ERROR............", error)
     toast.error(error.message)

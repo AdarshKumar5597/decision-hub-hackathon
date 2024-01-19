@@ -1,7 +1,11 @@
 export const NavbarLinks = [
   {
-    title: "Rules",
+    title: "Strategy Builder",
     path: "/",
+  },
+  {
+    title: "Strategies",
+    path: "/strategies",
   },
   {
     title: "DB Query",
@@ -12,11 +16,9 @@ export const NavbarLinks = [
     path: "/chatbot",
   },
   {
-    title: "Rule Builder",
-    path: "/rulebuilder",
+    title: "Add Parameters",
+    path: "/addparameters",
   },
-  {
-    title: "Testing",
-    path: "/test",
-  },
+  
+ 
 ]

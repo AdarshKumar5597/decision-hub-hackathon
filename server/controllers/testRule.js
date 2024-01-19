@@ -151,20 +151,23 @@ exports.test = async (req, res) => {
     try {
         const { formdata, rules } = req.body;
 
-        if (!formdata || !rules) {
+        if (!formdata) {
             return res.status(400).json({
                 success: false,
                 message: "Formdata cannot be empty",
             });
         }
 
-        const prompt = `formdata: ${rule.description}, rules: ${parameters}
-        generate just response of the above description in given json format without any explanation
-        {
-        'status':'OK',
-        'message':'message',
-        'sqlQuery':'Generate the SQL query of the description based on parameters if it is mentioned otherwise just mention sql query here',
-        }`;
+        console.log("Formdata: ",formdata)
+        console.log("Rules: ", rules)
+
+        const prompt = `formdata: ${formdata}, rules: ${rules}
+        In Rules There exists a parent rule object whose id is 0, And several conditions as objects whose parentId = id of rule to which it belongs.
+        Parent rule object can also have nested rule whose array length is 0 and parentId = id of rule to which it belongs, which can further have conditions in the similar manner.
+        Evaluate the Rules and formdata and tell which rules are wrong and correct and where it went wrong. Return only the output in the format shown below
+        {Rule1: true,
+        Rule2: false}
+        and also show the reason behind false and true and also debug the rule`;
 
         console.log('prompt:', prompt);
         const response = await openai.chat.completions.create({
@@ -175,18 +178,15 @@ exports.test = async (req, res) => {
                     content: `${prompt}`,
                 },
             ],
-            max_tokens: 100,
+            max_tokens: 1000,
         });
 
         console.log('\nresponse:', response.choices[0].message.content);
 
-        const jsonResponse = JSON.parse(response.choices[0].message.content);
-
-        const sqlQuery = jsonResponse.sqlQuery;
 
         res.status(200).json({
             success: true,
-            message: sqlQuery,
+            message: response.choices[0].message.content,
         });
 
     } catch (error) {

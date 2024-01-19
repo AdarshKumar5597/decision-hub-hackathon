@@ -63,7 +63,11 @@ exports.getAllStrategyRules = async (req, res) => {
 
         const strategyCollection = client.db().collection('StrategyCollection');
 
-        const allRules = await strategyCollection.find({ _id: req.strategyId }).toArray();
+        console.log(req.body.strategyId)
+
+        const allRules = await strategyCollection.find({ _id: req.body.strategyId }).toArray();
+
+        console.log(allRules)
 
         res.status(200).json({
             success: true,

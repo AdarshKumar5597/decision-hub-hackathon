@@ -28,7 +28,7 @@ function App() {
       ) : (
         <div className="flex md:flex-row flex-col justify-center items-center">
           <Navbar />
-          <div className="bg-[#111526] w-[90vw] md:h-[calc(0.95*100vh)] rounded-xl mx-5">
+          <div className={`${location.pathname === "/chatbot" ? "bg-white" : "bg-[#111526]"}  w-[90vw] md:h-[calc(0.95*100vh)] rounded-xl mx-5`}>
             <Routes>
               <Route path="/" element={<RuleCreate />} />
               <Route path="/test" element={<TestRule />} />

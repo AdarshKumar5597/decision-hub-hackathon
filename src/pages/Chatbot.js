@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 import { fetchChatbotRules } from '../services/operations/chatbotAPI';
+import { getAllStrategy } from '../services/operations/getAllRulesAPI';
 
 const Chatbot = () => {
 
@@ -12,6 +13,7 @@ const Chatbot = () => {
     const [previousChats, setPreviousChats] = useState([]);
     const [currentTitle, setCurrentTitle] = useState(null);
     const [chatbotData, setChatbotdata] = useState([]);
+    const [strategies, setStrategies] = useState('');
 
 
     const createNewChat = () => {
@@ -34,6 +36,7 @@ const Chatbot = () => {
                 message: JSON.stringify({
                     "currentQuestion": value,
                     "rules": chatbotData,
+                    "strategies": strategies
                 })
             }),
             headers: {
@@ -41,7 +44,7 @@ const Chatbot = () => {
             }
         }
         try {
-            const response = await fetch("https://express-backend-cdlo.onrender.com/api/v1/rules/completions", options)
+            const response = await fetch("http://localhost:5000/api/v1/rules/completions", options)
             const data = await response.json()
             setMessage(data.choices[0].message)
 
@@ -95,13 +98,23 @@ const Chatbot = () => {
         getChatbotRules()
     }, [])
 
+    useEffect(() => {
+        const fetchData = async () => {
+            let data = await getAllStrategy();
+            data = JSON.stringify(data);
+            setStrategies(data);
+            console.log('Strategy:', data);
+        };
+        fetchData();
+    }, []);
+
 
     const currentChat = previousChats.filter(prevChats => prevChats.title === currentTitle)
     const uniquetitles = Array.from(new Set(previousChats.map(prevChats => prevChats.title)))
 
 
     return (
-        <div className='app bg-[#212121da] flex my-5 w-[1080px] mx-auto'>
+        <div className='app bg-[#212121da] flex my-5 w-[1080px] mx-auto text-white rounded-lg'>
             <div className='side-bar bg-[#202123] h-[85vh] w-[244px] flex flex-col justify-between'>
                 <button onClick={handleNewChat} className='border border-solid border-white border-opacity-50 bg-transparent rounded-[5px] p-[10px] m-[10px]'>
                     + New Chat
@@ -127,7 +140,7 @@ const Chatbot = () => {
                     {
                         currentChat.map((chatMessage, index) =>
                             <li key={index}
-                                className={`flex gap-x-3 w-full ${chatMessage.role === 'user' ? " items-center justify-start" : " items-center justify-end"}`}>
+                                className={`flex gap-x-3 w-full ${chatMessage.role === 'user' ? "text-left items-center justify-start" : "text-right items-center justify-end"}`}>
                                 <div className={`p-2 w-[70%] overflow-y-scroll scrollbar-hide max-h-[100px] flex ${chatMessage.role === 'user' ? "user-li" : "assistant-li rounded-md"}`}>
                                     <p className='role'>{chatMessage.role.charAt(0).toUpperCase()}{chatMessage.role.slice(1)} : &nbsp;{chatMessage.content}</p>
                                 </div>
@@ -135,8 +148,8 @@ const Chatbot = () => {
                     }
                 </ul>
                 <div className='bottom-section w-[100%] h-[] flex flex-col justify-end items-center'>
-                    <div className='input-container relative flex justify-center items-center w-[70%]'>
-                        <input className='w-[100%] bg-black text-white rounded-[5px] py-[12px] px-[12px] outline-none' value={value} onChange={(e) => setValue(e.target.value)} />
+                    <div className='input-container relative flex justify-start items-center w-[70%]'>
+                        <input className='w-[90%] bg-black text-white rounded-[5px] py-[12px] px-[12px] outline-none' value={value} onChange={(e) => setValue(e.target.value)} />
 
                         <FaMagnifyingGlass id='submit' type='submit' onClick={getMessages} style={{ color: "white", position: "absolute", right: 15, top: 12, height: "25px", width: "25px", cursor: "pointer" }} />
 

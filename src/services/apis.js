@@ -11,7 +11,7 @@ export const endpoints = {
   DEBUG_RULE_API: BASE_URL + "/debugRule",
   RULE_HAS_PARAMETERS_API: BASE_URL + /ruleHasParameters/,
   GET_ALL_RULES_API: BASE_URL + "/getAllRules",
-  TEST_RULE_API: BASE_URL + "/testRule/",
+  TEST_RULE_API: BASE_URL + "/testRule",
   UPLOAD_DBFILE_API: BASE_URL + "/uploaddbfile",
   DBFILE_QUERY_API: BASE_URL + "/dbfilequery",
   CHATBOT_RULES_API: BASE_URL + "/chatbotRules",

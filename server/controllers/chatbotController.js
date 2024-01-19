@@ -95,8 +95,8 @@ exports.chatbotCompletions = async (req, res) => {
         },
         body: JSON.stringify({
             model: "gpt-3.5-turbo",
-            messages: [{role: "user", content: "Answer the current question based on the rules provided.\n" + req.body.message}],
-            max_tokens: 1000,
+            messages: [{role: "user", content: "Answer the current question based on the rules and strategies provided.\n" + req.body.message}],
+            max_tokens: 1500,
         })
     }
     try {

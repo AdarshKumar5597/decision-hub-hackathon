@@ -98,3 +98,53 @@ function parser(strategy1) {
 
 parser(strategy1)
 console.log(rule)
+
+function evaluateRules(rules, formData) {
+  const results = {};
+
+  for (const rule of rules) {
+    const ruleId = rule['id'];
+    const conditions = rule['conditions'];
+
+    let correct = true;
+    let reason = null;
+
+    for (const condition of conditions) {
+      const field = condition['field'];
+      const operator = condition['operator'];
+      const value = condition['value'];
+
+      if (!(field in formData)) {
+        correct = false;
+        reason = `Missing field: ${field}`;
+        break;
+      }
+
+      const fieldValue = formData[field];
+
+      if (operator === '==') {
+        if (fieldValue != value) {
+          correct = false;
+          reason = `${field} should be equal to ${value}`;
+          break;
+        }
+      } else if (operator === '>') {
+        if (fieldValue <= value) {
+          correct = false;
+          reason = `${field} should be greater than ${value}`;
+          break;
+        }
+      } else if (operator === '<') {
+        if (fieldValue >= value) {
+          correct = false;
+          reason = `${field} should be less than ${value}`;
+          break;
+        }
+      }
+    }
+
+    results[`Rule${ruleId}`] = correct ? true : `False: ${reason}`;
+  }
+
+  return results;
+}
