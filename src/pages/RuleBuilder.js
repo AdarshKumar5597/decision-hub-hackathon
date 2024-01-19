@@ -5,6 +5,7 @@ import { AddToRules, ResetAllRules } from "../slices/createRuleSlice"
 import { Button } from "@mui/material"
 import { getAllParameters } from "../services/operations/getAllRulesAPI"
 
+
 const operatorsByFieldType = {
   operators: ["", "=", "!=", "<", ">", "+", "-", "*", "/"],
 }
@@ -230,9 +231,6 @@ const RuleBuilder = (props) => {
                     {p}
                   </option>
                 ))}
-                <option value="name">Name</option>
-                <option value="age">Age</option>
-                <option value="dateOfBirth">Date of Birth</option>
               </select>
             </div>
 

@@ -17,7 +17,7 @@ export const NavbarLinks = [
   },
   {
     title: "Add Parameters",
-    path: "/addparameters",
+    path: "/addruleparams",
   },
   
  

@@ -159,13 +159,13 @@ exports.addToParameterList = async (req, res) => {
 
         await paramsArray.parameters.forEach(element => {
 
-            let duplicate = paramsCollection.findOne({ name: element.name })
-            if (duplicate) {
-                return res.status(400).json({
-                    success: false,
-                    message: `${element.name} already present.`
-                })
-            }
+            // let duplicate = paramsCollection.findOne({ name: element.name })
+            // if (duplicate) {
+            //     return res.status(400).json({
+            //         success: false,
+            //         message: `${element.name} already present.`
+            //     })
+            // }
 
             paramsCollection.insertOne({
                 name: element.name

@@ -78,7 +78,7 @@ const RuleCreate = () => {
         </div>
       )}
       {/* </Link> */}
-      <div className="h-[calc(0.6*100vh)] mt-4 text-white space-y-4 list-none mx-4 mr-8 overflow-y-scroll scrollbar-hide">
+      <div className="h-[calc(0.55*100vh)] text-white space-y-4 list-none mx-4 mr-8 overflow-y-scroll scrollbar-hide">
         {names.map((i, index) => (
           <div
             key={index}

@@ -15,7 +15,7 @@ export const endpoints = {
   UPLOAD_DBFILE_API: BASE_URL + "/uploaddbfile",
   DBFILE_QUERY_API: BASE_URL + "/dbfilequery",
   CHATBOT_RULES_API: BASE_URL + "/chatbotRules",
-  ADD_PARAMETERS_API: BASE_URL + "/addparameters",
+  ADD_PARAMETERS_API: BASE_URL + "/addruleparams",
   GET_ALL_PARAMETERS: BASE_URL + "/getallparams",
   ADD_STRATEGY_API: BASE_URL + "/add-strategy",
   GET_ALL_RULES: BASE_URL + "/fetch-rules",
