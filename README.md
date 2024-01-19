@@ -31,32 +31,24 @@ DecisionHub is not just a tool; it's a transformative platform that enhances the
 
     ##AVAILABLE FEATURES##
       1. **Create Rule**
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/da6b2435-4dad-4656-b862-070e426a3417)
+         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/830c3439-ec5a-49ab-8692-969b7a4da3ba)
+         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/c7072bb8-3424-4a8b-a377-7348b0ba37f7)
 
-      2. **Modify Rule**
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/8f251642-fc4f-464e-bb21-741cc0c72467)
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/56b0abd3-7c40-4c52-8f4c-e46b5041dcc2)
-          Here the old query for the above rule description will be modified for the new rule description.
-
-      4. **Test Rule**
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/bbdab0bc-2fd0-471d-b459-111139ce99dc)
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/8767d1a3-875a-4b9c-bef1-12616a369d39)
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/97e2e132-3dde-4b5c-83cd-c27f8921ff86)
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/cce8cc60-d235-439d-8ba2-e95230ca7aa8)
+      2. **Test Rule**
+         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/6077c116-71a9-41f6-8114-65d86aeaf8e8)
+         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/c5ba7864-963f-4e32-b247-baf377b8e709)
          Here we can test our rule by specifying the parameters according to our need
 
-      5. **Debug Rule**
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/e5cc5137-a214-46b3-805c-70c7f33ce18c)
-         ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/7638fbe7-bb2a-43d6-a223-fed3e220edb9)
-         *Note* - UI for this feature is under process. It will be updated by 16 dec
-         for now I have uploaded the api test results and it is working fine
-         Here it is showing all the necessary conditions which are required for the correct execution for the following SQL query.
-
-      5 **Database File Queries**
+      3. **Database File Queries**
           Here You can upload your SQL database and then perform the operations with the database file using plane English text
          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/fc8b7f5c-30b9-42bb-a2e2-e754cb71c188)
           for example in this I have uploaded a sample database file named 'sample.db' and just asked the question and the result
           is given.
+         
+      4. **Chatbot**
+          ![image](https://github.com/AdarshKumar5597/decision-hub-hackathon/assets/113282271/8e8b01ce-76a0-47a3-bf7f-56d361a34255)
+         Here, I have asked a query and chatbot answering it seamlessly.
+
 
 
 
